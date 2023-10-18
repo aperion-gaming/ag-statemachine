@@ -34,17 +34,6 @@ export async function trigger(event: string, map: object, state: object) {
   }
 
   //@ts-ignore
-  console.log(
-    "running event",
-    event,
-    "on state",
-    //@ts-ignore
-    state.currentState,
-    "next state",
-    nextState
-  );
-
-  //@ts-ignore
   await transitionState(nextState, map, state);
 }
 
