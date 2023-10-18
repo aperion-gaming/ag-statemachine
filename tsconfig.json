@@ -1,0 +1,22 @@
+{
+    "compileOnSave": true,
+    "compilerOptions": {
+      "esModuleInterop": true,
+      "strict": true,
+      "skipLibCheck": true,
+      "module": "ESNext",
+      "declaration": true,
+      "declarationDir": "types",
+      "sourceMap": true,
+      "outDir": "dist",
+      "moduleResolution": "node",
+      "emitDeclarationOnly": true,
+      "allowSyntheticDefaultImports": true,
+      "forceConsistentCasingInFileNames": true
+    },
+    "exclude": [
+      "dist",
+      "types",
+      "node_modules",
+    ]
+  }
