@@ -5,21 +5,10 @@ const state = createState({
   bla: false,
 });
 
-async function triggerWheel(event) {
-  await trigger(event, WheelMap, state);
+async function triggerWheel(event, state, context) {
+  await trigger(event, WheelMap, state, context);
 }
 
 (async () => {
-  await triggerWheel("step");
-  await triggerWheel("step");
-  await triggerWheel("step");
-  await triggerWheel("step");
-  await triggerWheel("step");
-  await triggerWheel("step");
-
-  state.bla = true;
-
-  await triggerWheel("step");
-  await triggerWheel("rotate");
-
+  await triggerWheel("next", state, context);
 })();

@@ -1,5 +1,10 @@
 //@ts-ignore
-export async function trigger(event: string, map: object, state: object) {
+export async function trigger(
+  event: string,
+  map: object,
+  state: object,
+  context: object
+) {
   //@ts-ignore
   let evt = getEvent(map, event, state.currentState);
 
@@ -10,7 +15,7 @@ export async function trigger(event: string, map: object, state: object) {
   //@ts-ignore
   if (!state.currentState) {
     //@ts-ignore
-    await transitionState(map.initialState, map, state);
+    await transitionState(map.initialState, map, state, context);
     //@ts-ignore
     evt = getEvent(map, event, state.currentState);
   }
@@ -26,7 +31,7 @@ export async function trigger(event: string, map: object, state: object) {
   if (typeof evt === "string") {
     nextState = evt;
   } else if (typeof evt === "function") {
-    nextState = await evt.call(null, state);
+    nextState = await evt.call(null, state, context);
   }
 
   if (!nextState) {
@@ -34,7 +39,7 @@ export async function trigger(event: string, map: object, state: object) {
   }
 
   //@ts-ignore
-  await transitionState(nextState, map, state);
+  await transitionState(nextState, map, state, context);
 }
 
 export function createState(state: object) {
@@ -45,19 +50,24 @@ export function createState(state: object) {
 }
 
 //@ts-ignore
-async function transitionState(nextState: string, map: object, state: object) {
+async function transitionState(
+  nextState: string,
+  map: object,
+  state: object,
+  context: object
+) {
   //@ts-ignore
   if (nextState === state.currentState) {
     return;
   }
 
-  await trigger("exit", map, state);
+  await trigger("exit", map, state, context);
 
   //@ts-ignore
   state.currentState = nextState;
 
   //@ts-ignore
-  await trigger("enter", map, state);
+  await trigger("enter", map, state, context);
 }
 
 function getEvent(map: object, event: string, currentState: string) {

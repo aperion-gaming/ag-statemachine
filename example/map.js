@@ -1,4 +1,4 @@
-export const WheelMap = {
+/*export const WheelMap = {
   initialState: "betting",
   states: {
     betting: {
@@ -33,5 +33,32 @@ export const WheelMap = {
     results: {
       exit: "betting",
     },
+  },
+};*/
+
+export const WheelMap = {
+  initialState: "idle",
+  states: {
+    idle: {
+      enter() {
+        console.log("idle enter");
+      },
+      next(state){
+        if(state.success){
+          return 'running';
+        }
+      },
+      pointerup:'error'
+    },
+    running: {
+      enter() {
+        console.log("running enter");
+      },
+    },
+    error:{
+      enter(){
+        
+      }
+    }
   },
 };
