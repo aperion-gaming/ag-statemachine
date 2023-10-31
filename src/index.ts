@@ -42,7 +42,7 @@ export async function trigger(
   await transitionState(nextState, map, state, context);
 }
 
-export function createState(state: object) {
+export function createState<T extends object>(state: T): { currentState: string } & T {
   return {
     currentState: "",
     ...state,
