@@ -2,7 +2,6 @@
   "name": "ag-statemachine",
   "version": "1.0.0",
   "description": "",
-  "type":"module",
   "main": "dist/index.min.js",
   "module": "dist/index.esm.js",
   "types": "dist/types.d.ts",
