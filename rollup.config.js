@@ -5,26 +5,35 @@ import dts from "rollup-plugin-dts";
 import terser from "@rollup/plugin-terser";
 import peerDepsExternal from "rollup-plugin-peer-deps-external";
 
-const packageJson = require("./package.json");
+const { main, module,browser } = require("./package.json");
 
 export default [
   {
     input: "src/index.ts",
     output: [
       {
-        file: packageJson.main,
+        file: main,
         format: "cjs",
         sourcemap: true,
       },
       {
-        file: packageJson.module,
+        file: module,
         format: "esm",
         sourcemap: true,
       },
+      {
+        file: browser,
+        name:'index',
+        format: 'umd',
+        sourcemap: true,
+      }
     ],
     plugins: [
       peerDepsExternal(),
-      resolve(),
+      resolve({
+        jsnext: true,
+        main: true,
+      }),
       commonjs({
         include: "node_modules/**",
         extensions: [".js"],
@@ -32,7 +41,7 @@ export default [
         sourceMap: false,
       }),
       typescript({
-        tsconfig: "./tsconfig.json"
+        tsconfig: "./tsconfig.json",
       }),
       terser(),
     ],
