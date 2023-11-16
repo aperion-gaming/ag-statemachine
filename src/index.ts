@@ -1,6 +1,6 @@
 /**
  * Trigger an event on a state machine
- * @param event The event to trigger 
+ * @param event The event to trigger
  * @param map The state map to use
  * @param state The current state of the machine
  * @param context The context to pass to the state
@@ -42,10 +42,6 @@ export function trigger(
     nextState = evt.call(null, state, context);
   }
 
-  if (!nextState) {
-    return;
-  }
-
   let data = null;
 
   if (Array.isArray(nextState)) {
@@ -53,7 +49,9 @@ export function trigger(
     data = nextState[1];
   }
 
-  transitionState(nextState, map, state, context);
+  if (nextState) {
+    transitionState(nextState, map, state, context);
+  }
 
   return data;
 }
@@ -74,7 +72,7 @@ export function createState<T extends object>(
 
 /**
  * Trigger an event on a state machine
- * @param event The event to trigger 
+ * @param event The event to trigger
  * @param map The state map to use
  * @param state The current state of the machine
  * @param context The context to pass to the state
@@ -115,10 +113,6 @@ export async function triggerAsync(
     nextState = await evt.call(null, state, context);
   }
 
-  if (!nextState) {
-    return;
-  }
-
   let data = null;
 
   if (Array.isArray(nextState)) {
@@ -127,7 +121,9 @@ export async function triggerAsync(
   }
 
   //@ts-ignore
-  await transitionStateAsync(nextState, map, state, context);
+  if (nextState) {
+    await transitionStateAsync(nextState, map, state, context);
+  }
 
   return data;
 }
