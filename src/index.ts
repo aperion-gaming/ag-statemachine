@@ -38,7 +38,16 @@ export function trigger(
     return;
   }
 
+  let data = null;
+
+  if (Array.isArray(nextState)) {
+    nextState = nextState[0];
+    data = nextState[1];
+  }
+
   transitionState(nextState, map, state, context);
+
+  return data;
 }
 
 export function createState<T extends object>(
@@ -89,8 +98,17 @@ export async function triggerAsync(
     return;
   }
 
+  let data = null;
+
+  if (Array.isArray(nextState)) {
+    nextState = nextState[0];
+    data = nextState[1];
+  }
+
   //@ts-ignore
   await transitionStateAsync(nextState, map, state, context);
+
+  return data;
 }
 
 function transitionState(
