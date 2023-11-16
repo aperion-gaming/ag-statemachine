@@ -118,6 +118,8 @@ export async function triggerAsync(
   if (Array.isArray(nextState)) {
     nextState = nextState[0];
     data = nextState[1];
+    //@ts-ignore
+    context.data = data;
   }
 
   //@ts-ignore
