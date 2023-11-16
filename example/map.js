@@ -12,10 +12,14 @@ module.exports = {
         }
       },
       pointerup: "error",
+      
     },
     running: {
       enter() {
         console.log("running enter");
+      },
+      next(state,context) {
+        console.log(context.data);
       },
     },
     error: {

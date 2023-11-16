@@ -47,13 +47,23 @@ export function trigger(
   if (Array.isArray(nextState)) {
     nextState = nextState[0];
     data = nextState[1];
+    //@ts-ignore
+    if (context.data) {
+      //@ts-ignore
+      context.data = {
+        //@ts-ignore
+        ...context.data,
+        ...data,
+      };
+    } else {
+      //@ts-ignore
+      context.data = { ...data };
+    }
   }
 
   if (nextState) {
     transitionState(nextState, map, state, context);
   }
-
-  return data;
 }
 
 /**
@@ -118,16 +128,25 @@ export async function triggerAsync(
   if (Array.isArray(nextState)) {
     nextState = nextState[0];
     data = nextState[1];
+
     //@ts-ignore
-    context.data = data;
+    if (context.data) {
+      //@ts-ignore
+      context.data = {
+        //@ts-ignore
+        ...context.data,
+        ...data,
+      };
+    } else {
+      //@ts-ignore
+      context.data = { ...data };
+    }
   }
 
   //@ts-ignore
   if (nextState) {
     await transitionStateAsync(nextState, map, state, context);
   }
-
-  return data;
 }
 
 function transitionState(
