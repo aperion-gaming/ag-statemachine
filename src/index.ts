@@ -1,10 +1,18 @@
-//@ts-ignore
+/**
+ * Trigger an event on a state machine
+ * @param event The event to trigger 
+ * @param map The state map to use
+ * @param state The current state of the machine
+ * @param context The context to pass to the state
+ * @returns void
+ */
+// @ts-ignore
 export function trigger(
   event: string,
   map: object,
   state: object,
   context: object
-) {
+): void {
   //@ts-ignore
   let evt = getEvent(map, event, state.currentState);
 
@@ -50,6 +58,11 @@ export function trigger(
   return data;
 }
 
+/**
+ * Create a state object
+ * @param state The state to create
+ * @returns The state with the currentState property and the state object
+ */
 export function createState<T extends object>(
   state: T
 ): { currentState: string } & T {
@@ -59,12 +72,20 @@ export function createState<T extends object>(
   };
 }
 
+/**
+ * Trigger an event on a state machine
+ * @param event The event to trigger 
+ * @param map The state map to use
+ * @param state The current state of the machine
+ * @param context The context to pass to the state
+ * @returns  void
+ */
 export async function triggerAsync(
   event: string,
   map: object,
   state: object,
   context: object
-) {
+): Promise<void> {
   //@ts-ignore
   let evt = getEvent(map, event, state.currentState);
 
